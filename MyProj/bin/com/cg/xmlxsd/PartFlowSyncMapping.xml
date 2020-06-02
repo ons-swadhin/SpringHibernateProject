@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<castor:mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xml.inetpsa.com/kor/rep/partflow/sync"
+    xmlns:castor="http://castor.exolab.org/" xsi:schemaLocation="http://castor.exolab.org/ mapping.xsd">
+
+    <castor:class
+        name="com.inetpsa.kor.flowmodeler.partflow.dto.batch.PartFlowDto">
+        <castor:map-to xml="partflow" xmlns="" />
+        <castor:field name="id" type="long">
+            <castor:bind-xml name="id" node="attribute" xmlns="" />
+        </castor:field>
+
+        <!--  V1.5-A --> 
+
+        <castor:field name="currentPartFlowStatePartFlow.stateCode" type="string">
+            <castor:bind-xml name="state" node="element" xmlns="" />
+        </castor:field>
+
+        <castor:field name="activeLogisticDistributionPercentage.logisticDistributionPercentage" type="float">
+            <castor:bind-xml name="logisticDistributionPercentages" node="element" xmlns="" />
+        </castor:field>
+        
+        <castor:field name="productExternalPlace.logisticTransferInProductionDate" type="date">
+            <castor:bind-xml name="logisticTransfertInProductionDate" node="element" xmlns="" />
+        </castor:field>
+        
+         <castor:field name="currentPurchaseOrderLine.purchaseOrderNumber" type="string">
+            <castor:bind-xml name="orderNumber" node="element" xmlns="" />
+        </castor:field>
+        
+         <!--  fin V1.5-A --> 
+
+        <castor:field name="consignee.code" type="string">
+            <castor:bind-xml name="consignee" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="seller"
+            type="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+            <castor:bind-xml name="seller" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="shipper"
+            type="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+            <castor:bind-xml name="shipper" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="product" type="com.inetpsa.kor.flowmodeler.product.dto.batch.ProductDto">
+            <castor:bind-xml name="product" node="element" xmlns="" />
+        </castor:field>
+        
+        <castor:field name="product.shortLabel" type="string">
+            <castor:bind-xml name="productLabel" node="element" xmlns="" />
+        </castor:field>
+        
+        <castor:field name="product.modularType.code" type="string">
+            <castor:bind-xml name="modularType" node="element" xmlns="" />
+        </castor:field>
+
+        <castor:field name="product.modularTypeLabel" type="string">
+            <castor:bind-xml name="label" node="element" xmlns="" />
+        </castor:field>
+        
+        <castor:field name="productExternalPlace.computeMethod.code" type="string">
+            <castor:bind-xml name="computeMethod" node="element" xmlns="" />
+        </castor:field>
+        
+        <castor:field name="listPartFlowSyncCurrentAndFutureOrderSystemProperties" collection="arraylist" type="com.inetpsa.kor.flowmodeler.partflow.dto.batch.OrderSystemDto">
+            <castor:bind-xml name="line" location="lines" node="element" xmlns="" />
+        </castor:field>
+        
+        <castor:field name="transfer" type="com.inetpsa.kor.flowmodeler.partner.dto.batch.TransferDto">
+            <castor:bind-xml name="transfer" node="element" xmlns="" />
+        </castor:field>
+    </castor:class>
+
+    <!-- shipper, seller -->
+    <castor:class
+        name="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+        <castor:map-to xml="externalPlace" xmlns="" />
+        <castor:field name="cofor" type="string">
+            <castor:bind-xml name="cofor" node="element" xmlns="" />
+        </castor:field>
+        <!--  V1.5-A --> 
+        <castor:field name="companyName" type="string">
+            <castor:bind-xml name="companyName" node="element"  xmlns=""  />
+        </castor:field>
+        <!--  Fin V1.5-A --> 
+        <castor:field name="ediCode" type="string">
+            <castor:bind-xml name="ediCode" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="agencyCode" type="string">
+            <castor:bind-xml name="agencyCode" node="element"  xmlns=""  />
+        </castor:field>
+    </castor:class>
+
+    <!-- products -->
+    <castor:class name="com.inetpsa.kor.flowmodeler.product.dto.batch.ProductDto">
+        <castor:map-to xml="product" xmlns="" />
+        <castor:field name="code" type="string">
+            <castor:bind-xml node="text"  xmlns="" />
+        </castor:field>
+    </castor:class>
+
+    <!--  system orders -->
+    <castor:class name="com.inetpsa.kor.flowmodeler.partflow.dto.batch.OrderSystemDto">
+        <castor:field name="sgr.code" type="string">
+            <castor:bind-xml name="sgr" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="line.code" type="string">
+            <castor:bind-xml name="line" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="synchroneType" type="string">
+            <castor:bind-xml name="synchroneType" node="element" xmlns="" />
+        </castor:field>
+    </castor:class>
+<!--Transfer   -->
+<castor:class name="com.inetpsa.kor.flowmodeler.partner.dto.batch.TransferDto">
+ <castor:map-to xml="transfer" xmlns="" />
+        <castor:field name="id" type="long">
+            <castor:bind-xml name="id" node="attribute" xmlns="" />
+        </castor:field>
+        <!-- <castor:field name="consignee.code" type="string">
+            <castor:bind-xml name="consignee" node="element" xmlns="" />
+        </castor:field> -->
+        <castor:field name="status.stateCode" type="string">
+            <castor:bind-xml name="state" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="seller"
+            type="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+            <castor:bind-xml name="seller" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="shipper"
+            type="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+            <castor:bind-xml name="shipper" node="element" xmlns="" />
+        </castor:field>
+         <castor:field name="cofor" type="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+            <castor:bind-xml name="cofor" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="transfertShipperCompanyName.companyName" type="string">
+            <castor:bind-xml name="companyName" node="element"  xmlns=""  />
+        </castor:field>
+        <castor:field name="ediCode" type="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+            <castor:bind-xml name="ediCode" node="element" xmlns="" />
+        </castor:field>
+        <castor:field name="agencyCode" type="com.inetpsa.kor.flowmodeler.partner.dto.batch.ExternalPlaceDto">
+            <castor:bind-xml name="agencyCode" node="element"  xmlns=""  />
+        </castor:field>
+        <castor:field name="applyingDate" type="date">
+            <castor:bind-xml name="applyingDate" node="element"  xmlns=""  />
+        </castor:field>
+        
+    </castor:class>
+</castor:mapping>

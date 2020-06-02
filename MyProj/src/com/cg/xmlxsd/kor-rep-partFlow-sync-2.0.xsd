@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://xml.inetpsa.com/kor/rep/partflow/sync"
+    xmlns:exp="http://xml.inetpsa.com/kor/rep/partflow/sync" xmlns:typ="http://xml.inetpsa.com/kor/rep/simpletypes"
+    xmlns:biz="http://xml.inetpsa.com/kor/rep/businessenums" elementFormDefault="qualified">
+    <xsd:import namespace="http://xml.inetpsa.com/kor/rep/simpletypes" schemaLocation="../commons/kor-rep-simpletypes-0.1.xsd" />
+    <xsd:import namespace="http://xml.inetpsa.com/kor/rep/businessenums" schemaLocation="../commons/kor-rep-businessenums-0.1.xsd" /> 
+        
+    <xsd:element name="corailExport" type="exp:corailExportType">
+        <xsd:key name="key">
+            <xsd:selector xpath="./exp:partflow" />
+            <xsd:field xpath="@id" />
+        </xsd:key>
+        <xsd:key name="functionalKey">
+            <xsd:selector xpath="./exp:partflow" />
+            <xsd:field xpath="exp:consignee" />
+            <xsd:field xpath="exp:seller/exp:cofor" />
+            <xsd:field xpath="exp:shipper/exp:cofor" />
+            <xsd:field xpath="exp:product" />
+        </xsd:key>
+    </xsd:element>
+
+  <xsd:complexType name="corailExportType">
+  <xsd:sequence>
+  <xsd:element name="exportDate" type="xsd:dateTime" /> 
+  <xsd:element name="partflow" type="exp:partflowType" minOccurs="0" maxOccurs="unbounded" /> 
+  </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="partflowType">
+  <xsd:sequence>
+ <!--  V1.5-A --> 
+  <xsd:element name="state" type="biz:partFlowStateEnum" /> 
+  <xsd:element name="logisticDistributionPercentages" type="xsd:float" minOccurs="0" />
+  <xsd:element name="logisticTransfertInProductionDate" type="xsd:dateTime" minOccurs="0" /> 
+  <xsd:element name="orderNumber" type="xsd:string" minOccurs="0" />    
+ <!--  Fin V1.5-A --> 
+  <xsd:element name="consignee" type="typ:userCenterCode" /> 
+  <xsd:element name="seller" type="exp:sellerShipperType" /> 
+  <xsd:element name="shipper" type="exp:sellerShipperType" /> 
+  <xsd:element name="product" type="typ:productCode" /> 
+ <!--  V1.5-A --> 
+  <xsd:element name="productLabel" type="xsd:string" /> 
+  <xsd:element name="modularType" type="biz:modularTypeEnum" minOccurs="0" /> 
+  <xsd:element name="label" type="xsd:string" minOccurs="0" />
+  <!--  Fin V1.5-A -->  
+  <xsd:element name="computeMethod" type="xsd:string" minOccurs="0" />  
+  <xsd:element name="lines" type="exp:linesType" minOccurs="0" />
+  
+  <!-- Start V2.0 -->
+  <xsd:element name="zifExceptions" type="exp:zifExceptionsType" minOccurs="0" />
+  <xsd:element name="transfer" type="exp:transferType" minOccurs="0"/>
+  <!-- End V2.0 -->
+  </xsd:sequence>
+  
+  <xsd:attribute name="id" type="xsd:long" /> 
+  </xsd:complexType>
+  
+ <xsd:complexType name="sellerShipperType">
+ <xsd:sequence>
+  <xsd:element name="cofor" type="typ:cofor" /> 
+  <!--  V1.5-A  --> 
+  <xsd:element name="companyName" type="xsd:string" minOccurs="0" />  
+  <!--  Fin V1.5-A --> 
+  <xsd:element name="ediCode" type="xsd:string" minOccurs="0" /> 
+  <xsd:element name="agencyCode" type="xsd:string" minOccurs="0" /> 
+  </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="linesType">
+    <xsd:sequence>
+        <xsd:element name="line" type="exp:lineType" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="lineType">
+    <xsd:sequence>
+        <xsd:element name="sgr" type="xsd:string"/>
+        <xsd:element name="line" type="xsd:string"/>
+        <xsd:element name="synchroneType" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="zifExceptionsType">
+    <xsd:sequence>
+        <xsd:element name="zifException" type="exp:zifExceptionType" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="zifExceptionType">
+    <xsd:sequence>
+        <xsd:element name="sgr" type="xsd:string"/>
+        <xsd:element name="line" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+ 
+  <xsd:complexType name="transferType">
+    <xsd:sequence>
+      <xsd:element name="seller" type="exp:sellerShipperType" /> 
+      <xsd:element name="shipper" type="exp:sellerShipperType" /> 
+      <xsd:element name="applicationDate" type="xsd:dateTime" /> 
+      <xsd:element name="status" type="xsd:string"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:long" /> 
+  </xsd:complexType>
+    
+  </xsd:schema>
